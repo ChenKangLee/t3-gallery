@@ -18,7 +18,8 @@ export function TopNav() {
         <SignedIn>
           <UploadButton
             endpoint="imageUploader"
-            onClientUploadComplete={() => {
+            onClientUploadComplete={(payload) => {
+              console.log(payload);
               router.refresh();
             }}
           />

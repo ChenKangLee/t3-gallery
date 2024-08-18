@@ -1,6 +1,6 @@
-import { db } from "~/server/db";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { getImages } from "~/server/queries";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -9,13 +9,21 @@ async function ImageSection() {
     const images = await getImages();
 
     return (
-      <ul className="flex flex-wrap gap-2">
-        {images.map((image) => (
-          <ul key={image.id} className="w-48">
-            <img src={image.url} alt={image.name} />
-          </ul>
-        ))}
-      </ul>
+      <div className="p-4">
+        <ul className="flex flex-wrap justify-center gap-2">
+          {images.map((image) => (
+            <ul key={image.id} className="w-48">
+              <Image
+                src={image.url}
+                alt={image.name}
+                style={{ objectFit: "contain" }}
+                width={480}
+                height={480}
+              />
+            </ul>
+          ))}
+        </ul>
+      </div>
     );
   } catch (e) {
     console.log(e);
